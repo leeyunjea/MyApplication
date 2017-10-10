@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button search;
     private ListView listView;
     private String str_address;
+    private boolean trace = false;
 
     private FusedLocationProviderClient mFusedLocationClient;
     private static final int RC_LOCATION = 1;
@@ -77,14 +78,21 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("yunjae", "size=" + arrayList.size());
 
                 if (str_address.equals("현재위치")) {
-                    stopLocationUpdate();
+                    if(trace){
+                        stopLocationUpdate();
+                        trace = false;
+                    }
                     getLastLocation();
                 }
                 else if(str_address.equals("위치추적")) {
+                    trace = true;
                     startLocationUpdate();
                 }
                 else {
-                    stopLocationUpdate();
+                    if(trace){
+                        stopLocationUpdate();
+                        trace = false;
+                    }
                     toAddress();
                 }
                 adapter.notifyDataSetChanged();
