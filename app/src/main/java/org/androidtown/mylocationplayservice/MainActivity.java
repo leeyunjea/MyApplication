@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     public void startLocationUpdate() {
         LocationRequest locRequest = new LocationRequest();
         locRequest.setInterval(10000);
-        locRequest.setFastestInterval(3000);
+        locRequest.setFastestInterval(1000);
         locRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         mLocationCallback = new LocationCallback(){
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 mLastLocation = locationResult.getLastLocation();
                 try {
                     Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.KOREA);
-                    List<Address> addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
+                    List<Address> addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 10);
                     if (addresses.size() > 0) {
                         Address bestResult = (Address) addresses.get(0);
                         str_address = bestResult.getFeatureName();
